@@ -1,47 +1,19 @@
-import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import React from 'react';
+import { Text, View, FlatList } from 'react-native';
 
-import Home from './Home';
-import Details from './Details';
+import styles from './styles';
 
-const AppNavigator = createStackNavigator(
-  {
-    Home,
-    Details,
-  },
-  { initialRouteName: 'Home' },
+const data = new Array(100)
+  .fill(null)
+  .map((v, i) => ({ key: i.toString(), value: `Item ${i}` }));
+
+export default () => (
+  <View style={styles.container}>
+    <FlatList
+      data={data}
+      renderItem={({ item }) => (
+        <Text style={styles.item}>{item.value}</Text>
+      )}
+    />
+  </View>
 );
-
-const Nav = createAppContainer(AppNavigator);
-
-class App extends Component {
-  state = {
-    stock: {
-      first: 1,
-      second: 0,
-      third: 200,
-    },
-  };
-
-  updateStock = (id) => {
-    this.setState(({ stock }) => ({
-      stock: {
-        ...stock,
-        [id]: stock[id] === 0 ? 0 : stock[id] - 1,
-      },
-    }));
-  };
-
-  render() {
-    const props = {
-      ...this.state,
-      updateStock: this.updateStock,
-    };
-
-    return (
-      <Nav screenProps={props} />
-    );
-  }
-}
-
-export default App;
