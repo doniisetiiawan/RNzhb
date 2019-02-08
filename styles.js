@@ -1,12 +1,12 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    backgroundColor: 'ghostwhite',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: 'ghostwhite',
     ...Platform.select({
       ios: { paddingTop: 20 },
       android: { paddingTop: StatusBar.currentHeight },
@@ -27,3 +27,5 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default styles;

@@ -8,6 +8,5 @@ export default () => (
   <View style={styles.container}>
     <Box>#1</Box>
     <Box>#2</Box>
-    <Box>#3</Box>
   </View>
 );
