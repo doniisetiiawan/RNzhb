@@ -1,43 +1,14 @@
-import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import styles from './styles';
-import Box from './Box';
-import Row from './Row';
-import Column from './Column';
+import Home from './Home';
+import Settings from './Settings';
 
-export default () => (
-  <View style={styles.container}>
-    <StatusBar hidden={false} />
-    <Row>
-      <Column>
-        <Box>#1</Box>
-        <Box>#2</Box>
-      </Column>
-      <Column>
-        <Box>#3</Box>
-        <Box>#4</Box>
-      </Column>
-    </Row>
-    <Row>
-      <Column>
-        <Box>#5</Box>
-        <Box>#6</Box>
-      </Column>
-      <Column>
-        <Box>#7</Box>
-        <Box>#8</Box>
-      </Column>
-    </Row>
-    <Row>
-      <Column>
-        <Box>#9</Box>
-        <Box>#10</Box>
-      </Column>
-      <Column>
-        <Box>#11</Box>
-        <Box>#12</Box>
-      </Column>
-    </Row>
-  </View>
+const AppNavigator = createStackNavigator(
+  {
+    Home,
+    Settings,
+  },
+  { initialRouteName: 'Home' },
 );
+
+export default createAppContainer(AppNavigator);
