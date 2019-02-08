@@ -10,19 +10,24 @@ const Details = ({ navigation }) => (
   </View>
 );
 
+Details.navigationOptions = ({ navigation, screenProps: { stock, updateStock } }) => {
+  const id = navigation.getParam('id');
+  const title = navigation.getParam('title');
+
+  return {
+    title,
+    headerRight: (
+      <Button
+        title="Buy"
+        onPress={() => updateStock(id)}
+        disabled={stock[id] === 0}
+      />
+    ),
+  };
+};
+
 Details.propTypes = {
   navigation: PropTypes.any.isRequired,
 };
-
-Details.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam('title'),
-  headerRight: (
-    <Button
-      title="Buy"
-      onPress={() => {}}
-      disabled={navigation.getParam('stock') === 0}
-    />
-  ),
-});
 
 export default Details;

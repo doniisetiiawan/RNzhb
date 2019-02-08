@@ -1,22 +1,47 @@
-import { createBottomTabNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
-import { Platform } from 'react-native';
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Home from './Home';
-import News from './News';
-import Settings from './Settings';
+import Details from './Details';
 
-const { createNavigator } = Platform.select({
-  android: { createNavigator: createBottomTabNavigator },
-  ios: { createNavigator: createDrawerNavigator },
-});
-
-const AppNavigator = createNavigator(
+const AppNavigator = createStackNavigator(
   {
     Home,
-    News,
-    Settings,
+    Details,
   },
   { initialRouteName: 'Home' },
 );
 
-export default createAppContainer(AppNavigator);
+const Nav = createAppContainer(AppNavigator);
+
+class App extends Component {
+  state = {
+    stock: {
+      first: 1,
+      second: 0,
+      third: 200,
+    },
+  };
+
+  updateStock = (id) => {
+    this.setState(({ stock }) => ({
+      stock: {
+        ...stock,
+        [id]: stock[id] === 0 ? 0 : stock[id] - 1,
+      },
+    }));
+  };
+
+  render() {
+    const props = {
+      ...this.state,
+      updateStock: this.updateStock,
+    };
+
+    return (
+      <Nav screenProps={props} />
+    );
+  }
+}
+
+export default App;
