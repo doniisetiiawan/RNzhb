@@ -1,12 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 
 import styles from './styles';
 import Box from './Box';
 
+const boxes = new Array(10).fill(null).map((v, i) => i + 1);
+
 export default () => (
   <View style={styles.container}>
-    <Box>#1</Box>
-    <Box>#2</Box>
+    <StatusBar hidden={false} />
+    {boxes.map(i => (
+      <Box key={i}>#{i}</Box>
+    ))}
   </View>
 );
