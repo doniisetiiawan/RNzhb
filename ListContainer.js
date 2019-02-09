@@ -1,56 +1,35 @@
-/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 
-import { fetchItems } from './api';
+import * as api from './api';
 import List from './List';
-
-const mapItems = items => items.map((value, i) => ({ key: i.toString(), value }));
 
 class ListContainer extends Component {
   state = {
     data: [],
-    asc: true,
-    filter: '',
   };
 
   componentDidMount() {
-    const { filter, asc } = this.state;
-
-    fetchItems(filter, asc)
-      .then(resp => resp.json())
-      .then(({ items }) => {
-        this.setState({ data: mapItems(items) });
-      });
+    this.fetchItems();
   }
 
+  fetchItems = () => api
+    .fetchItems()
+    .then(resp => resp.json())
+    .then(({ items }) => this.setState(state => ({
+      data: [
+        ...state.data,
+        ...items.map((value, i) => ({
+          key: i.toString(),
+          value,
+        }))],
+    })));
+
+
   render() {
-    const { data, asc, filter } = this.state;
+    const { data } = this.state;
 
     return (
-      <List
-        data={data}
-        asc={asc}
-        onFilter={(text) => {
-          fetchItems(text, asc)
-            .then(resp => resp.json())
-            .then(({ items }) => {
-              this.setState({
-                filter: text,
-                data: mapItems(items),
-              });
-            });
-        }}
-        onSort={() => {
-          fetchItems(filter, !asc)
-            .then(resp => resp.json())
-            .then(({ items }) => {
-              this.setState({
-                asc: !asc,
-                data: mapItems(items),
-              });
-            });
-        }}
-      />
+      <List data={data} fetchItems={this.fetchItems} />
     );
   }
 }

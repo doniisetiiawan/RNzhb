@@ -1,19 +1,17 @@
-/* eslint-disable no-nested-ternary,import/prefer-default-export */
-const items = new Array(100).fill(null)
-  .map((v, i) => `Item ${i}`);
+/* eslint-disable import/prefer-default-export */
+function* genItems() {
+  let cnt = 0;
 
-const filterAndSort = (data, text, asc) => data
-  .filter(i => text.length === 0 || i.includes(text))
-  .sort(
-    asc
-      ? (a, b) => (b > a ? -1 : a === b ? 0 : 1)
-      : (a, b) => (a > b ? -1 : a === b ? 0 : 1),
-  );
+  while (true) {
+    yield `Item ${cnt += 1}`;
+  }
+}
 
-export const fetchItems = (filter, asc) => new Promise((resolve) => {
-  resolve({
-    json: () => Promise.resolve({
-      items: filterAndSort(items, filter, asc),
-    }),
-  });
+const items = genItems();
+
+export const fetchItems = () => Promise.resolve({
+  json: () => Promise.resolve({
+    items: new Array(20).fill(null)
+      .map(() => items.next().value),
+  }),
 });
