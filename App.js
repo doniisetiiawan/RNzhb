@@ -1,11 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 import styles from './styles';
-import ListContainer from './ListContainer';
 
 export default () => (
   <View style={styles.container}>
-    <ListContainer />
+    <ActivityIndicator size="large" />
   </View>
 );
