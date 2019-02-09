@@ -1,49 +1,54 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 
+import { fetchItems } from './api';
 import List from './List';
 
 const mapItems = items => items.map((value, i) => ({ key: i.toString(), value }));
 
-const filterAndSort = (data, text, asc) => data
-  .filter(i => text.length === 0 || i.includes(text))
-  .sort(asc
-    ? (a, b) => (b > a ? -1 : a === b ? 0 : 1)
-    : (a, b) => (a > b ? -1 : a === b ? 0 : 1));
-
 class ListContainer extends Component {
   state = {
-    data: filterAndSort(
-      new Array(100).fill(null).map((v, i) => `Item ${i}`),
-      '',
-      true,
-    ),
+    data: [],
     asc: true,
     filter: '',
   };
+
+  componentDidMount() {
+    const { filter, asc } = this.state;
+
+    fetchItems(filter, asc)
+      .then(resp => resp.json())
+      .then(({ items }) => {
+        this.setState({ data: mapItems(items) });
+      });
+  }
 
   render() {
     const { data, asc, filter } = this.state;
 
     return (
       <List
-        data={mapItems(data)}
+        data={data}
         asc={asc}
         onFilter={(text) => {
-          this.setState({
-            filter: text,
-            data: filterAndSort(data, text, asc),
-          });
+          fetchItems(text, asc)
+            .then(resp => resp.json())
+            .then(({ items }) => {
+              this.setState({
+                filter: text,
+                data: mapItems(items),
+              });
+            });
         }}
         onSort={() => {
-          this.setState({
-            asc: !asc,
-            data: filterAndSort(
-              data,
-              filter,
-              !asc,
-            ),
-          });
+          fetchItems(filter, !asc)
+            .then(resp => resp.json())
+            .then(({ items }) => {
+              this.setState({
+                asc: !asc,
+                data: mapItems(items),
+              });
+            });
         }}
       />
     );
