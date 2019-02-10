@@ -7,11 +7,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  label: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  address: {
-    fontWeight: 'bold',
+  mapView: {
+    alignSelf: 'stretch',
+    height: 250,
+    margin: 30,
   },
 });
