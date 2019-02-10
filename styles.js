@@ -7,22 +7,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  nav: {
-    backgroundColor: 'lightgray',
+  label: {
+    textAlign: 'center',
+    margin: 10,
   },
-  title: {
-    flex: 1,
-    fontSize: 16,
+  address: {
     fontWeight: 'bold',
-    alignItems: 'center',
-  },
-  content: {
-    fontSize: 23,
-    fontWeight: 'bold',
-  },
-  progress: {
-    width: 170,
-    alignItems: 'center',
-    padding: 1,
   },
 });
