@@ -5,9 +5,15 @@ import { View, Text } from 'react-native';
 import styles from './styles';
 import { ProgressBarComponent, progressProps } from './ProgressBarComponent';
 
-const ProgressLabel = ({ show, progress }) => show && (
-<Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
-);
+const ProgressLabel = ({ show, progress }) => new Map([
+  [
+    true,
+    <Text style={styles.progressText}>
+      {Math.round(progress * 100)}%
+    </Text>,
+  ],
+  [false, null],
+]).get(show);
 
 const ProgressBar = ({ progress, label }) => (
   <View style={styles.progress}>

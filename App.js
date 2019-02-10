@@ -1,36 +1,31 @@
-import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import First from './First';
 import Second from './Second';
 import Third from './Third';
+import Fourth from './Fourth';
 
-const AppNavigator = createStackNavigator({
-  First: {
-    screen: props => (
-      <First
-        promise={new Promise(resolve => setTimeout(resolve, 1000))}
-        {...props}
-      />
-    ),
+const routes = [
+  First,
+  Second,
+  Third,
+  Fourth,
+];
+
+const AppNavigator = createStackNavigator(
+  routes.reduce(
+    (result, route) => ({
+      ...result,
+      [route.name]: route,
+    }),
+    {},
+  ),
+  {
+    initialRouteName: 'First',
+    initialRouteParams: {
+      progress: route => (routes.map(r => r.name).indexOf(route) + 1) / routes.length,
+    },
   },
-  Second: {
-    screen: props => (
-      <Second
-        promise={new Promise(resolve => setTimeout(resolve, 1000))}
-        {...props}
-      />
-    ),
-  },
-  Third: {
-    screen: props => (
-      <Third
-        promise={new Promise(resolve => setTimeout(resolve, 1000))}
-        {...props}
-      />
-    ),
-  },
-},
-{ initialRouteName: 'First' });
+);
 
 export default createAppContainer(AppNavigator);

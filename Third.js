@@ -2,21 +2,42 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import styles from './styles';
-import loading from './loading';
+import ProgressBar from './ProgressBar';
 
-const First = loading(({ navigation }) => (
+const Third = () => (
   <View style={styles.container}>
+    <Text style={styles.content}>Third Content</Text>
+  </View>
+);
+
+Third.navigationOptions = ({ navigation }) => ({
+  headerTitle: (
+    <View style={styles.progress}>
+      <Text style={styles.title}>Third</Text>
+      <ProgressBar
+        label={false}
+        progress={navigation.state.params.progress(
+          navigation.state.routeName,
+        )}
+      />
+    </View>
+  ),
+  headerLeft: (
     <Text
-      style={styles.item}
-      onPress={() => navigation.navigate('First')}
-    >First
-    </Text>
-    <Text
-      style={styles.item}
-      onPress={() => navigation.navigate('Second')}
+      onPress={() => navigation.navigate(
+        'Second', navigation.state.params,
+      )}
     >Second
     </Text>
-  </View>
-));
+  ),
+  headerRight: (
+    <Text
+      onPress={() => navigation.navigate(
+        'Fourth', navigation.state.params,
+      )}
+    >Fourth
+    </Text>
+  ),
+});
 
-export default First;
+export default Third;
