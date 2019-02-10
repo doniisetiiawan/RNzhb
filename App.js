@@ -1,39 +1,36 @@
-/* eslint-disable react/destructuring-assignment,react/no-access-state-in-setstate */
-import React, { Component } from 'react';
-import { View } from 'react-native';
+import React from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import styles from './styles';
-import ProgressBar from './ProgressBar';
+import First from './First';
+import Second from './Second';
+import Third from './Third';
 
-class App extends Component {
-  state = {
-    progress: 0,
-  };
+const AppNavigator = createStackNavigator({
+  First: {
+    screen: props => (
+      <First
+        promise={new Promise(resolve => setTimeout(resolve, 1000))}
+        {...props}
+      />
+    ),
+  },
+  Second: {
+    screen: props => (
+      <Second
+        promise={new Promise(resolve => setTimeout(resolve, 1000))}
+        {...props}
+      />
+    ),
+  },
+  Third: {
+    screen: props => (
+      <Third
+        promise={new Promise(resolve => setTimeout(resolve, 1000))}
+        {...props}
+      />
+    ),
+  },
+},
+{ initialRouteName: 'First' });
 
-  componentDidMount() {
-    const updateProgress = () => {
-      this.setState({
-        progress: this.state.progress + 0.01,
-      });
-
-      if (this.state.progress < 1) {
-        setTimeout(updateProgress, 300);
-      }
-    };
-
-    updateProgress();
-  }
-
-
-  render() {
-    const { progress } = this.state;
-
-    return (
-      <View style={styles.container}>
-        <ProgressBar progress={progress} />
-      </View>
-    );
-  }
-}
-
-export default App;
+export default createAppContainer(AppNavigator);
