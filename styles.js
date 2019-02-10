@@ -3,22 +3,20 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'ghostwhite',
+    padding: 10,
+    paddingTop: 20,
   },
-  mapView: {
+  textInputContainer: {
     alignSelf: 'stretch',
-    height: 250,
-    margin: 30,
   },
-  ipaText: {
-    color: 'coral',
+  textInputLabel: {
+    marginBottom: 4,
   },
-  stoutText: {
-    color: 'firebrick',
-  },
-  boldText: {
-    fontWeight: 'bold',
+  textInput: {
+    backgroundColor: 'white',
+    height: 40,
+    fontSize: 11,
   },
 });
