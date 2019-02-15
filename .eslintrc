@@ -8,6 +8,7 @@
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/forbid-prop-types": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/destructuring-assignment": "off"
   }
 }
