@@ -3,20 +3,35 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: 'ghostwhite',
-    padding: 10,
-    paddingTop: 20,
   },
-  textInputContainer: {
-    alignSelf: 'stretch',
+  pickerHeight: {
+    height: 175,
   },
-  textInputLabel: {
-    marginBottom: 4,
-  },
-  textInput: {
+  pickerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 40,
     backgroundColor: 'white',
-    height: 40,
-    fontSize: 11,
+    padding: 6,
+    height: 240,
+  },
+  pickerLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  picker: {
+    width: 100,
+    backgroundColor: 'white',
+  },
+  selection: {
+    width: 200,
+    marginTop: 230,
+    textAlign: 'center',
   },
 });

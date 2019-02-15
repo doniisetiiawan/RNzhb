@@ -1,34 +1,32 @@
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Text, TextInput, View } from 'react-native';
+import { View, Text } from 'react-native';
 import { fromJS } from 'immutable';
 
 import styles from './styles';
-
-const Input = (props) => {
-  const { label } = props;
-
-  return (
-    <View style={styles.textInputContainer}>
-      <Text style={styles.textInputLabel}>{label}</Text>
-      <TextInput style={styles.textInput} {...props} />
-    </View>
-  );
-};
-
-Input.defaultProps = {
-  label: '',
-};
-
-Input.propTypes = {
-  label: PropTypes.string,
-};
+import Select from './Select';
 
 class App extends Component {
   state = {
     data: fromJS({
-      changedText: '',
-      submittedText: '',
+      sizes: [
+        { label: '', value: null },
+        { label: 'S', value: 'S' },
+        { label: 'M', value: 'M' },
+        { label: 'L', value: 'L' },
+        { label: 'XL', value: 'XL' },
+      ],
+      selectedSize: null,
+      garments: [
+        { label: '', value: null, sizes: ['S', 'M', 'L', 'XL'] },
+        { label: 'Socks', value: 1, sizes: ['S', 'L'] },
+        { label: 'Shirt', value: 2, sizes: ['M', 'XL'] },
+        { label: 'Pants', value: 3, sizes: ['S', 'L'] },
+        { label: 'Hat', value: 4, sizes: ['M', 'XL'] },
+      ],
+      availableGarments: [],
+      selectedGarment: null,
+      selection: '',
     }),
   };
 
@@ -42,43 +40,49 @@ class App extends Component {
   }
 
   render() {
-    const { changedText, submittedText } = this.data.toJS();
+    const {
+      sizes,
+      selectedSize,
+      availableGarments,
+      selectedGarment,
+      selection,
+    } = this.data.toJS();
 
     return (
       <View style={styles.container}>
-        <Input label="Basic Text Input:" />
-        <Input
-          label="Password Input:"
-          secureTextEntry
-        />
-        <Input
-          label="Return Input:"
-          returnKeyType="search"
-        />
-        <Input
-          label="Placeholder Text:"
-          placeholder="search"
-        />
-        <Input
-          label="Input Events:"
-          onChangeText={(e) => {
-            this.data = this.data.set('changedText', e);
+        <Select
+          label="Size"
+          items={sizes}
+          selectedValue={selectedSize}
+          onValueChange={(size) => {
+            this.data = this.data
+              .set('selectedSize', size)
+              .set('selectedGarment', null)
+              .set(
+                'availableGarments',
+                this.data
+                  .get('garments')
+                  .filter(i => i.get('sizes').includes(size)),
+              );
           }}
-          onSubmitEditing={(e) => {
-            this.data = this.data.set(
-              'submittedText',
-              e.nativeEvent.text,
+        />
+        <Select
+          label="Garment"
+          items={availableGarments}
+          selectedValue={selectedGarment}
+          onValueChange={(garment) => {
+            this.data = this.data.set('selectedGarment', garment).set(
+              'selection',
+              `${this.data.get('selectedSize')
+              } ${
+                this.data
+                  .get('garments')
+                  .find(i => i.get('value') === garment)
+                  .get('label')}`,
             );
           }}
-          onFocus={() => {
-            this.data = this.data
-              .set('changedText', '')
-              .set('submittedText', '');
-          }}
         />
-
-        <Text>Changed: {changedText}</Text>
-        <Text>Submitted: {submittedText}</Text>
+        <Text style={styles.selection}>{selection}</Text>
       </View>
     );
   }
