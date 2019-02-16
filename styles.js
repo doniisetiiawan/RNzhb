@@ -3,35 +3,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  pickerHeight: {
-    height: 175,
-  },
-  pickerContainer: {
-    flex: 1,
-    flexDirection: 'column',
+  customSwitch: {
     alignItems: 'center',
-    marginTop: 40,
-    backgroundColor: 'white',
-    padding: 6,
-    height: 240,
-  },
-  pickerLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  picker: {
-    width: 100,
-    backgroundColor: 'white',
-  },
-  selection: {
-    width: 200,
-    marginTop: 230,
-    textAlign: 'center',
+    margin: 10,
   },
 });
