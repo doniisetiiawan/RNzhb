@@ -23,14 +23,25 @@ export default StyleSheet.create({
     borderRadius: 2,
     alignItems: 'center',
   },
+  modalInnerError: {
+    backgroundColor: 'lightcoral',
+    borderColor: 'darkred',
+  },
   modalText: {
     fontSize: 16,
     margin: 5,
     color: 'slategrey',
   },
+  modalTextError: {
+    fontSize: 18,
+    color: 'darkred',
+  },
   modalButton: {
     fontWeight: 'bold',
     margin: 5,
     color: 'slategrey',
+  },
+  modalButtonError: {
+    color: 'black',
   },
 });

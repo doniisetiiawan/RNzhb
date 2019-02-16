@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { fromJS } from 'immutable';
 
 import styles from './styles';
-import ConfirmationModal from './ConfirmationModal';
+import ErrorModal from './ErrorModal';
 import ConfirmationAlert from './ConfirmationAlert';
 
 class App extends Component {
@@ -36,23 +36,18 @@ class App extends Component {
 
     return (
       <View style={styles.container}>
-        <ConfirmationModal
+        <ErrorModal
           animationType="fade"
           visible={modalVisible}
           onPressConfirm={toggleModal}
           onPressCancel={toggleModal}
         />
         <ConfirmationAlert
-          title="Are you sure?"
-          message="Fore realz?"
+          message="Failed to do the thing..."
           visible={alertVisible}
           buttons={[
             {
-              text: 'Nope',
-              onPress: toggleAlert,
-            },
-            {
-              text: 'Yep',
+              text: 'Dismiss',
               onPress: toggleAlert,
             },
           ]}
@@ -61,12 +56,12 @@ class App extends Component {
         <Text
           style={styles.text}
           onPress={toggleModal}
-        >Show Confirmation Modal
+        >Show Error Modal
         </Text>
         <Text
           style={styles.text}
           onPress={toggleAlert}
-        >Show Confirmation Alert
+        >Show Error Alert
         </Text>
       </View>
     );
