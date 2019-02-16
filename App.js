@@ -1,44 +1,34 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
+/* eslint-disable global-require */
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Image, View } from 'react-native';
 
-import { fromJS } from 'immutable';
 import styles from './styles';
-import Swipeable from './Swipeable';
 
-class App extends Component {
-  state = {
-    data: fromJS(
-      new Array(8)
-        .fill(null)
-        .map((v, id) => ({ id, name: 'Swipe me...' })),
-    ),
-  };
+const App = ({ reactSource, relaySource }) => (
+  <View style={styles.container}>
+    <Image style={styles.image} source={reactSource} />
+    <Image style={styles.image} source={relaySource} />
+  </View>
+);
 
-  get data() {
-    return this.state.data;
-  }
+const sourceProp = PropTypes.oneOfType([
+  PropTypes.shape({
+    uri: PropTypes.string.isRequired,
+  }),
+  PropTypes.number,
+]).isRequired;
 
-  set data(data) {
-    this.setState({ data });
-  }
+App.propTypes = {
+  reactSource: sourceProp,
+  relaySource: sourceProp,
+};
 
-  onSwipe = id => () => {
-    this.data = this.data.filterNot(v => v.get('id') === id);
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.data.toJS().map(i => (
-          <Swipeable
-            key={i.id}
-            onSwipe={this.onSwipe(i.id)}
-            name={i.name}
-          />
-        ))}
-      </View>
-    );
-  }
-}
+App.defaultProps = {
+  reactSource: {
+    uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png',
+  },
+  relaySource: require('./images/relay.png'),
+};
 
 export default App;
