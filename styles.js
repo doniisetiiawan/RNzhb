@@ -5,9 +5,17 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'ghostwhite',
+    backgroundColor: 'black',
   },
-  slider: {
-    width: 100,
+  button: {
+    padding: 10,
+    margin: 5,
+    backgroundColor: 'azure',
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: 'slategrey',
+  },
+  buttonText: {
+    color: 'slategrey',
   },
 });

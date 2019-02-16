@@ -1,45 +1,30 @@
-/* eslint-disable global-require */
 import React, { Component } from 'react';
-import {
-  Image, Slider, Text, View,
-} from 'react-native';
-import { fromJS } from 'immutable';
+import { View } from 'react-native';
 
 import styles from './styles';
+import LazyImage from './LazyImage';
+import Button from './Button';
+
+const remote = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
 
 class App extends Component {
   state = {
-    data: fromJS({
-      source: require('./images/flux.png'),
-      width: 100,
-      height: 100,
-    }),
+    source: null,
   };
 
-  get data() {
-    return this.state.data;
-  }
-
-  set data(data) {
-    this.setState({ data });
-  }
-
   render() {
-    const { source, width, height } = this.data.toJS();
     return (
       <View style={styles.container}>
-        <Image source={source} style={{ width, height }} />
-        <Text>Width: {width}</Text>
-        <Text>Height: {height}</Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={50}
-          maximumValue={200}
-          value={width}
-          onValueChange={(v) => {
-            this.data = this.data.merge({
-              width: v,
-              height: v,
+        <LazyImage
+          style={{ width: 200, height: 100 }}
+          resizeMode="contain"
+          source={this.state.source}
+        />
+        <Button
+          label="Load Remote"
+          onPress={() => {
+            this.setState({
+              source: { uri: remote },
             });
           }}
         />
