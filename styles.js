@@ -7,8 +7,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  customSwitch: {
-    alignItems: 'center',
-    margin: 10,
+  datePickerContainer: {
+    width: 260,
+    margin: 20,
+  },
+  datePickerLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

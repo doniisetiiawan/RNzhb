@@ -1,46 +1,29 @@
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { fromJS } from 'immutable';
 
 import styles from './styles';
-import Switch from './Switch';
+import DatePicker from './DatePicker';
+import TimePicker from './TimePicker';
 
 class App extends Component {
   state = {
-    data: fromJS({
-      first: false,
-      second: false,
-    }),
+    date: new Date(),
+    time: new Date(),
   };
 
-  get data() {
-    return this.state.data;
-  }
-
-  set data(data) {
-    this.setState({ data });
-  }
-
   render() {
-    const { first, second } = this.state.data.toJS();
-
     return (
       <View style={styles.container}>
-        <Switch
-          label="Disable Next Switch"
-          value={first}
-          disabled={second}
-          onValueChange={(v) => {
-            this.data = this.data.set('first', v);
-          }}
+        <DatePicker
+          label="Pick a date:"
+          date={this.state.date}
+          onDateChange={date => this.setState({ date })}
         />
-        <Switch
-          label="Disable Previous Switch"
-          value={second}
-          disabled={first}
-          onValueChange={(v) => {
-            this.data = this.data.set('second', v);
-          }}
+        <TimePicker
+          label="Pick a time, any time:"
+          date={this.state.time}
+          onTimeChange={time => this.setState({ time })}
         />
       </View>
     );
