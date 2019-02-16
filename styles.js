@@ -7,16 +7,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  text: {
-    fontSize: 20,
-    textAlign: 'center',
+  button: {
+    padding: 10,
+    margin: 5,
+    backgroundColor: 'azure',
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: 'slategrey',
   },
-  scroll: {
-    height: 1,
-    alignSelf: 'stretch',
-  },
-  scrollItem: {
-    margin: 20,
-    alignSelf: 'center',
+  buttonText: {
+    color: 'slategrey',
   },
 });
