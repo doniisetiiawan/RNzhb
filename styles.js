@@ -7,17 +7,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  notificationContainer: {
+  modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  notificationInner: {
-    backgroundColor: 'azure',
-    padding: 20,
-    borderWidth: 1,
-    borderColor: 'lightsteelblue',
-    borderRadius: 2,
-    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
 });

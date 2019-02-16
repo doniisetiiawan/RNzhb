@@ -1,17 +1,27 @@
-/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-
 import { fromJS } from 'immutable';
+
 import styles from './styles';
-import Notification from './Notification';
+import Activity from './Activity';
 
 class App extends Component {
   state = {
     data: fromJS({
-      count: 0,
-      message: null,
+      fetching: false,
+      promise: Promise.resolve(),
     }),
+  };
+
+  onPressx = () => {
+    this.data = this.data.merge({
+      promise: new Promise(resolve => setTimeout(resolve, 3000)).then(
+        () => {
+          this.data = this.data.set('fetching', false);
+        },
+      ),
+      fetching: true,
+    });
   };
 
   get data() {
@@ -23,24 +33,10 @@ class App extends Component {
   }
 
   render() {
-    const { count, message } = this.data.toJS();
-
     return (
       <View style={styles.container}>
-        <Notification message={message} />
-        <Text onPress={() => {
-          this.data = this.data
-            .update('count', c => c + 1)
-            .set('message', null);
-        }}
-        >Procced {count}
-        </Text>
-        <Text onPress={() => {
-          this.data = this.data
-            .set('message', 'Something happened...');
-        }}
-        >Show notification
-        </Text>
+        <Activity visible={this.data.get('fetching')} />
+        <Text onPress={this.onPressx}>Fetch stuff...</Text>
       </View>
     );
   }
