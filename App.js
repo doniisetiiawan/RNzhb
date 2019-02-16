@@ -1,45 +1,21 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { fromJS } from 'immutable';
+/* eslint-disable react/no-array-index-key */
+import React from 'react';
+import {
+  ActivityIndicator, ScrollView, Switch, Text, View,
+} from 'react-native';
 
 import styles from './styles';
-import Activity from './Activity';
 
-class App extends Component {
-  state = {
-    data: fromJS({
-      fetching: false,
-      promise: Promise.resolve(),
-    }),
-  };
-
-  onPressx = () => {
-    this.data = this.data.merge({
-      promise: new Promise(resolve => setTimeout(resolve, 3000)).then(
-        () => {
-          this.data = this.data.set('fetching', false);
-        },
-      ),
-      fetching: true,
-    });
-  };
-
-  get data() {
-    return this.state.data;
-  }
-
-  set data(data) {
-    this.setState({ data });
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Activity visible={this.data.get('fetching')} />
-        <Text onPress={this.onPressx}>Fetch stuff...</Text>
-      </View>
-    );
-  }
-}
-
-export default App;
+export default () => (
+  <View style={styles.container}>
+    <ScrollView style={styles.scroll}>
+      {new Array(6).fill(null).map((v, i) => (
+        <View key={i}>
+          <Text style={[styles.scrollItem, styles.text]}>Some text</Text>
+          <ActivityIndicator style={styles.scrollItem} size="large" />
+          <Switch style={styles.scrollItem} />
+        </View>
+      ))}
+    </ScrollView>
+  </View>
+);

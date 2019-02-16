@@ -9,7 +9,7 @@ const Activity = props => (
     <View style={styles.modalContainer}>
       <ActivityIndicator size={props.size} />
     </View>
-  </Modal>  
+  </Modal>
 );
 
 Activity.propTypes = {

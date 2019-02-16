@@ -7,10 +7,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  text: {
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  scroll: {
+    height: 1,
+    alignSelf: 'stretch',
+  },
+  scrollItem: {
+    margin: 20,
+    alignSelf: 'center',
   },
 });
