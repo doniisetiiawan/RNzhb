@@ -1,30 +1,73 @@
-/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import { fromJS } from 'immutable';
 
 import styles from './styles';
-import DatePicker from './DatePicker';
-import TimePicker from './TimePicker';
+import ConfirmationModal from './ConfirmationModal';
+import ConfirmationAlert from './ConfirmationAlert';
 
 class App extends Component {
   state = {
-    date: new Date(),
-    time: new Date(),
+    data: fromJS({
+      modalVisible: false,
+      alertVisible: false,
+    }),
+  };
+
+  get data() {
+    return this.state.data;
+  }
+
+  set data(data) {
+    this.setState({ data });
+  }
+
+  toggleModal = () => {
+    this.data = this.data.update('modalVisible', v => !v);
+  };
+
+  toggleAlert = () => {
+    this.data = this.data.update('alertVisible', v => !v);
   };
 
   render() {
+    const { modalVisible, alertVisible } = this.data.toJS();
+    const { toggleModal, toggleAlert } = this;
+
     return (
       <View style={styles.container}>
-        <DatePicker
-          label="Pick a date:"
-          date={this.state.date}
-          onDateChange={date => this.setState({ date })}
+        <ConfirmationModal
+          animationType="fade"
+          visible={modalVisible}
+          onPressConfirm={toggleModal}
+          onPressCancel={toggleModal}
         />
-        <TimePicker
-          label="Pick a time, any time:"
-          date={this.state.time}
-          onTimeChange={time => this.setState({ time })}
+        <ConfirmationAlert
+          title="Are you sure?"
+          message="Fore realz?"
+          visible={alertVisible}
+          buttons={[
+            {
+              text: 'Nope',
+              onPress: toggleAlert,
+            },
+            {
+              text: 'Yep',
+              onPress: toggleAlert,
+            },
+          ]}
         />
+
+        <Text
+          style={styles.text}
+          onPress={toggleModal}
+        >Show Confirmation Modal
+        </Text>
+        <Text
+          style={styles.text}
+          onPress={toggleAlert}
+        >Show Confirmation Alert
+        </Text>
       </View>
     );
   }

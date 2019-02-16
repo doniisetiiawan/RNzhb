@@ -7,12 +7,30 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  datePickerContainer: {
-    width: 260,
-    margin: 20,
+  text: {
+    color: 'slategrey',
   },
-  datePickerLabel: {
-    fontSize: 18,
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalInner: {
+    backgroundColor: 'azure',
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'lightsteelblue',
+    borderRadius: 2,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 16,
+    margin: 5,
+    color: 'slategrey',
+  },
+  modalButton: {
     fontWeight: 'bold',
+    margin: 5,
+    color: 'slategrey',
   },
 });
