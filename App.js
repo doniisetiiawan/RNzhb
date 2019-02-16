@@ -1,34 +1,51 @@
 /* eslint-disable global-require */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Image, View } from 'react-native';
+import React, { Component } from 'react';
+import {
+  Image, Slider, Text, View,
+} from 'react-native';
+import { fromJS } from 'immutable';
 
 import styles from './styles';
 
-const App = ({ reactSource, relaySource }) => (
-  <View style={styles.container}>
-    <Image style={styles.image} source={reactSource} />
-    <Image style={styles.image} source={relaySource} />
-  </View>
-);
+class App extends Component {
+  state = {
+    data: fromJS({
+      source: require('./images/flux.png'),
+      width: 100,
+      height: 100,
+    }),
+  };
 
-const sourceProp = PropTypes.oneOfType([
-  PropTypes.shape({
-    uri: PropTypes.string.isRequired,
-  }),
-  PropTypes.number,
-]).isRequired;
+  get data() {
+    return this.state.data;
+  }
 
-App.propTypes = {
-  reactSource: sourceProp,
-  relaySource: sourceProp,
-};
+  set data(data) {
+    this.setState({ data });
+  }
 
-App.defaultProps = {
-  reactSource: {
-    uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png',
-  },
-  relaySource: require('./images/relay.png'),
-};
+  render() {
+    const { source, width, height } = this.data.toJS();
+    return (
+      <View style={styles.container}>
+        <Image source={source} style={{ width, height }} />
+        <Text>Width: {width}</Text>
+        <Text>Height: {height}</Text>
+        <Slider
+          style={styles.slider}
+          minimumValue={50}
+          maximumValue={200}
+          value={width}
+          onValueChange={(v) => {
+            this.data = this.data.merge({
+              width: v,
+              height: v,
+            });
+          }}
+        />
+      </View>
+    );
+  }
+}
 
 export default App;

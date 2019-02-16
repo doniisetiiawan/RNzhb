@@ -7,9 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
   },
-  image: {
+  slider: {
     width: 100,
-    height: 100,
-    margin: 20,
   },
 });
