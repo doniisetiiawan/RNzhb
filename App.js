@@ -1,16 +1,16 @@
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { fromJS } from 'immutable';
+import { Text, View } from 'react-native';
 
+import { fromJS } from 'immutable';
 import styles from './styles';
-import ErrorModal from './ErrorModal';
-import ConfirmationAlert from './ConfirmationAlert';
+import Notification from './Notification';
 
 class App extends Component {
   state = {
     data: fromJS({
-      modalVisible: false,
-      alertVisible: false,
+      count: 0,
+      message: null,
     }),
   };
 
@@ -22,46 +22,24 @@ class App extends Component {
     this.setState({ data });
   }
 
-  toggleModal = () => {
-    this.data = this.data.update('modalVisible', v => !v);
-  };
-
-  toggleAlert = () => {
-    this.data = this.data.update('alertVisible', v => !v);
-  };
-
   render() {
-    const { modalVisible, alertVisible } = this.data.toJS();
-    const { toggleModal, toggleAlert } = this;
+    const { count, message } = this.data.toJS();
 
     return (
       <View style={styles.container}>
-        <ErrorModal
-          animationType="fade"
-          visible={modalVisible}
-          onPressConfirm={toggleModal}
-          onPressCancel={toggleModal}
-        />
-        <ConfirmationAlert
-          message="Failed to do the thing..."
-          visible={alertVisible}
-          buttons={[
-            {
-              text: 'Dismiss',
-              onPress: toggleAlert,
-            },
-          ]}
-        />
-
-        <Text
-          style={styles.text}
-          onPress={toggleModal}
-        >Show Error Modal
+        <Notification message={message} />
+        <Text onPress={() => {
+          this.data = this.data
+            .update('count', c => c + 1)
+            .set('message', null);
+        }}
+        >Procced {count}
         </Text>
-        <Text
-          style={styles.text}
-          onPress={toggleAlert}
-        >Show Error Alert
+        <Text onPress={() => {
+          this.data = this.data
+            .set('message', 'Something happened...');
+        }}
+        >Show notification
         </Text>
       </View>
     );
